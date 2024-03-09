@@ -105,7 +105,7 @@ const WellnessWheel: React.FC<{ wellness: Wellness | undefined }> = ({ wellness 
     };
 
     // ウェルネスオブジェクトの値に基づいて透明度を設定
-    const getOpacity = (value: number): number => (value - .5) * 2;;//1-value;
+
     if (wellness === undefined) {
         return <Box sx={{ w: 200, h: 200 }}></Box>;
     }

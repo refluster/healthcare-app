@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTheme } from '@mui/material/styles';
-import { grey, blueGrey, deepOrange, brown, indigo, green, orange } from '@mui/material/colors';
+import { grey, deepOrange, indigo, green, orange } from '@mui/material/colors';
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 import { LinkProps } from '@mui/material/Link';
 

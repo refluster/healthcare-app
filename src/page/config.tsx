@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Slider, Switch, TextField, Typography, } from '@mui/material';
-import {
-    Link as RouterLink,
-    LinkProps as RouterLinkProps,
-    Route,
-    Routes,
-    MemoryRouter,
-    useLocation,
-} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Box, Slider, Switch, TextField } from '@mui/material';
 import Header from '../component/header';
-import { grey } from '@mui/material/colors';
 
 const IndexPage: React.FC = () => {
     useEffect(() => {

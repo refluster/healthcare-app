@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions } from '@mui/material';
 import Header from '../component/header';
 import { grey } from '@mui/material/colors';
