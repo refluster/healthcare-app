@@ -12,6 +12,7 @@ import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import IndexPage from './page';
 import ConfigPage from './page/config';
 import HealthcarePage from './page/healthcare';
+import IntroPage from './page/intro';
 
 function routes() {
   return [
@@ -24,6 +25,9 @@ function routes() {
     }, {
       path: "/config",
       element: <ConfigPage />
+    }, {
+      path: "/intro",
+      element: <IntroPage />
     }, {
       path: "*",
       element: <Navigate to="/" replace />

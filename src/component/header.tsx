@@ -5,12 +5,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@mui/material';
+import { Divider, Drawer, Link, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import {
-    Link as RouterLink,
-    LinkProps as RouterLinkProps,
-} from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -21,19 +17,11 @@ interface ListItemLinkProps {
     to: string;
 }
 
-const Link = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(function Link(
-    itemProps,
-    ref,
-) {
-    return <RouterLink ref={ref} {...itemProps} role={undefined} />;
-});
-
 function ListItemLink(props: ListItemLinkProps) {
     const { icon, primary, to } = props;
-
     return (
         <li>
-            <ListItem component={Link} to={to}>
+            <ListItem component={Link} href={to}>
                 {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
                 <ListItemText primary={primary} />
             </ListItem>
