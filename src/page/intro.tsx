@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { Box, Link } from '@mui/material';
 import Header from '../component/header';
-import { signInWithPopup, signInWithRedirect } from '@firebase/auth';
+import { signInWithRedirect } from '@firebase/auth';
 import { auth, provider } from '../lib/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const IntroPage: React.FC = () => {
+    const [user] = useAuthState(auth);
     useEffect(() => {
         (async () => {
         })();
@@ -15,16 +17,39 @@ const IntroPage: React.FC = () => {
             <Header title="Wellness" />
             <Box sx={{ mx: 2 }}>
                 <h1>Hello</h1>
-                <SignInButton />
+                {user ? (<>
+                    <UserInfo />
+                    <SignOutButton />
+                </>
+                ) : (
+                    <>
+                        <SignInButton />
+                    </>
+                )}
             </Box>
         </Box>
     );
 };
 
+function UserInfo() {
+    return <>
+        User info
+        <img src={auth.currentUser?.photoURL || ''} />
+        <p>{auth.currentUser?.displayName}</p>
+        <button onClick={() => {console.log(auth.currentUser)}}>auth</button>
+    </>
+}
+
+function SignOutButton() {
+    return <button onClick={() => auth.signOut()}>
+        Sign out
+    </button>
+}
+
 function SignInButton() {
     const signInWithGoogle = () => {
         signInWithRedirect(auth, provider);
-//        signInWithPopup(auth, provider);
+        //        signInWithPopup(auth, provider);
     }
 
     return <button onClick={signInWithGoogle}>

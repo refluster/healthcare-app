@@ -4,12 +4,14 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import { Divider, Drawer, Link, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, provider } from '../lib/firebase';
+import { getAuth } from '@firebase/auth';
 
 interface ListItemLinkProps {
     icon?: React.ReactElement;
@@ -30,7 +32,9 @@ function ListItemLink(props: ListItemLinkProps) {
 }
 
 export default function Header(props: { title: string }) {
+    const [user] = useAuthState(auth);
     const [drawerState, setDrawerState] = React.useState(false);
+    //const [user, setUser] = React.useState(null) as any;
     const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
         if (event.type === 'keydown' && ((event as React.KeyboardEvent).key === 'Tab' ||
             (event as React.KeyboardEvent).key === 'Shift')) {
@@ -38,6 +42,16 @@ export default function Header(props: { title: string }) {
         }
         setDrawerState(open);
     };
+    React.useEffect(() => {
+        (async () => {
+            /*
+            const auth = getAuth();
+            console.log(auth);
+            setUser(auth?.currentUser);
+            console.log(auth?.currentUser?.photoURL);
+            */
+        })();
+    }, []);
     const links = [
         { title: 'Home', url: '/', icon: <HomeIcon /> },
         { title: 'Wellness', url: '/healthcare', icon: <ArticleIcon /> },
@@ -64,7 +78,7 @@ export default function Header(props: { title: string }) {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: grey[100] }}>
+            <AppBar position="static" sx={{ backgroundColor: grey[50] }}>
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -74,7 +88,10 @@ export default function Header(props: { title: string }) {
                         sx={{ mr: 2 }}
                         onClick={toggleDrawer(true)}
                     >
-                        <MenuIcon />
+                        <img src={user?.photoURL || ''} style={{
+                            width: 40, height: 40,
+                            borderRadius: '50%'
+                        }} />
                     </IconButton>
                     <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
                         {props.title}

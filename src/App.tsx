@@ -40,18 +40,23 @@ const AppInner: React.FC = () => {
 
   return (
     <div style={{
+      background: "#ccc",
+    }}>
+    <div style={{
       minHeight: '100vh',
       color: theme.palette.text.primary,
       maxWidth: 420,
       marginRight: 'auto',
       marginLeft: 'auto',
-      position: 'absolute',
+      position: 'relative',
+      background: "#fff",
       left: 0,
       right: 0,
     }}>
       <ThemeProvider theme={theme}>
         <RouterProvider router={router} />
       </ThemeProvider>
+    </div>
     </div>
   )
 }
