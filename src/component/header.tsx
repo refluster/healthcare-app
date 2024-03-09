@@ -10,8 +10,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, provider } from '../lib/firebase';
-import { getAuth } from '@firebase/auth';
+import { auth } from '../lib/firebase';
 
 interface ListItemLinkProps {
     icon?: React.ReactElement;
@@ -88,7 +87,7 @@ export default function Header(props: { title: string }) {
                         sx={{ mr: 2 }}
                         onClick={toggleDrawer(true)}
                     >
-                        <img src={user?.photoURL || ''} style={{
+                        <img src={user?.photoURL || ''} alt="user icon" style={{
                             width: 40, height: 40,
                             borderRadius: '50%'
                         }} />

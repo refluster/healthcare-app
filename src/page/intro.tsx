@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Link } from '@mui/material';
+import { Box } from '@mui/material';
 import Header from '../component/header';
 import { signInWithRedirect } from '@firebase/auth';
 import { auth, provider } from '../lib/firebase';
@@ -34,7 +34,6 @@ const IntroPage: React.FC = () => {
 function UserInfo() {
     return <>
         User info
-        <img src={auth.currentUser?.photoURL || ''} />
         <p>{auth.currentUser?.displayName}</p>
         <button onClick={() => {console.log(auth.currentUser)}}>auth</button>
     </>
