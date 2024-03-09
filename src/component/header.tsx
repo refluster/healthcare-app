@@ -42,12 +42,6 @@ export default function Header(props: { title: string }) {
     };
     React.useEffect(() => {
         (async () => {
-            /*
-            const auth = getAuth();
-            console.log(auth);
-            setUser(auth?.currentUser);
-            console.log(auth?.currentUser?.photoURL);
-            */
         })();
     }, []);
     const links = [
@@ -76,7 +70,7 @@ export default function Header(props: { title: string }) {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: grey[50] }}>
+            <AppBar position="static" elevation={0} sx={{ backgroundColor: grey[50] }}>
                 <Toolbar>
                     <Box onClick={toggleDrawer(true)} sx={{
                         backgroundColor: '#888',

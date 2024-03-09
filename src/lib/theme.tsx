@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTheme } from '@mui/material/styles';
-import { grey, deepOrange, indigo, green, orange } from '@mui/material/colors';
+import { grey, deepOrange, green, orange, blue, indigo } from '@mui/material/colors';
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 import { LinkProps } from '@mui/material/Link';
 
@@ -28,7 +28,7 @@ const theme = createTheme({
           contrastText: grey[50],
         },
         */
-        primary: grey,
+        primary: blue,
         secondary: orange,
         error: deepOrange,
         info: indigo,

@@ -1,23 +1,28 @@
 import React, { useEffect } from 'react';
-import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions } from '@mui/material';
+import { Box, Typography, Button, Card, CardContent, CardActions } from '@mui/material';
 import Header from '../component/header';
-import { grey } from '@mui/material/colors';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../lib/firebase';
+import { useNavigate } from "react-router-dom";
 
 const ConfigPage: React.FC = () => {
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate();
     useEffect(() => {
         (async () => {
+            console.log(user);
+            if (!user) {
+                navigate('/intro');
+            }
         })();
-    }, []);
+    }, [user, navigate]);
 
     return (
         <Box>
-            <Header title="wellness app" />
-            <Box sx={{ mx: 2 }}>
-                <h1>Home</h1>
-                <Card sx={{ maxWidth: 345, my: 2 }}>
-                    <CardMedia
-                        sx={{ height: 140, backgroundColor: grey[300] }}
-                    />
+            <Header title="Wellness" />
+            <Box>
+                <h1 style={{marginLeft: 16}}>Home</h1>
+                <Card sx={{ my: 2 }}>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                             Morning
@@ -31,10 +36,7 @@ const ConfigPage: React.FC = () => {
                         <Button size="small">Learn More</Button>
                     </CardActions>
                 </Card>
-                <Card sx={{ maxWidth: 345, my: 2 }}>
-                    <CardMedia
-                        sx={{ height: 140, backgroundColor: grey[300] }}
-                        />
+                <Card sx={{ my: 2 }}>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                             Grey
@@ -48,10 +50,7 @@ const ConfigPage: React.FC = () => {
                         <Button size="small">Learn More</Button>
                     </CardActions>
                 </Card>
-                <Card sx={{ maxWidth: 345, my: 2 }}>
-                    <CardMedia
-                        sx={{ height: 140, backgroundColor: grey[300] }}
-                        />
+                <Card sx={{ my: 2 }}>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                             Health
