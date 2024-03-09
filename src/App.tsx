@@ -1,26 +1,61 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import theme from './lib/theme';
+import { ThemeProvider } from "@mui/material/styles";
+
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import IndexPage from './page';
+import ConfigPage from './page/config';
+import HealthcarePage from './page/healthcare';
+
+function routes() {
+  return [
+    {
+      path: "/",
+      element: <IndexPage />
+    }, {
+      path: "/healthcare",
+      element: <HealthcarePage />
+    }, {
+      path: "/config",
+      element: <ConfigPage />
+    }, {
+      path: "*",
+      element: <Navigate to="/" replace />
+    },
+  ];
+}
+
+const AppInner: React.FC = () => {
+  const router = createBrowserRouter(routes());
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload. -&gt; Done.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{
+      minHeight: '100vh',
+      color: theme.palette.text.primary,
+      maxWidth: 420,
+      marginRight: 'auto',
+      marginLeft: 'auto',
+      position: 'absolute',
+      left: 0,
+      right: 0,
+    }}>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </div>
-  );
+  )
+}
+
+const App: React.FC = () => {
+  return (
+    <AppInner />
+  )
 }
 
 export default App;
