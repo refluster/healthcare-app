@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import { Divider, Drawer, Link, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import HomeIcon from '@mui/icons-material/Home';
@@ -79,19 +78,14 @@ export default function Header(props: { title: string }) {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{ backgroundColor: grey[50] }}>
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                        onClick={toggleDrawer(true)}
-                    >
-                        <img src={user?.photoURL || ''} alt="user icon" style={{
-                            width: 40, height: 40,
-                            borderRadius: '50%'
-                        }} />
-                    </IconButton>
+                    <Box onClick={toggleDrawer(true)} sx={{
+                        backgroundColor: '#888',
+                        backgroundImage: `url(${user?.photoURL || ''})`,
+                        backgroundSize: 'contain',
+                        width: 40, height: 40,
+                        borderRadius: '50%',
+                        mr: 2,
+                    }} />
                     <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
                         {props.title}
                     </Typography>
