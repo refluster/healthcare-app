@@ -69,8 +69,8 @@ export default function Header(props: { title: string }) {
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" elevation={0} sx={{ backgroundColor: grey[50] }}>
+        <Box sx={{ maxWidth: 420, mx: 'auto', flexGrow: 1, width: '100%', position: 'fixed', borderBottom: '1px solid #eee' }}>
+            <AppBar position="static" elevation={0} sx={{ color: grey[900], backgroundColor: grey[50] }}>
                 <Toolbar>
                     <Box onClick={toggleDrawer(true)} sx={{
                         backgroundColor: '#888',

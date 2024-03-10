@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, IconButton, Paper } from '@mui/material';
+import { IconButton, Paper } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
