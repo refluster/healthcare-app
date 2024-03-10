@@ -4,6 +4,8 @@ import Header from '../component/header';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
 import { useNavigate } from "react-router-dom";
+import PostButton from '../component/post-button';
+
 
 const ConfigPage: React.FC = () => {
     const [user] = useAuthState(auth);
@@ -65,6 +67,7 @@ const ConfigPage: React.FC = () => {
                     </CardActions>
                 </Card>
             </Box>
+            <PostButton style={{position: 'absolute', right: 24, bottom: 24}} />
         </Box>
     );
 };
