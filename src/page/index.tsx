@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import { Box, Typography, Button, Card, CardContent, CardActions } from '@mui/material';
+import { Box, Typography, Button, Card, CardContent, CardActions, Drawer } from '@mui/material';
 import Header from '../component/header';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
 import { useNavigate } from "react-router-dom";
 import PostButton from '../component/post-button';
+import PostPage from './post';
 
-
-const ConfigPage: React.FC = () => {
+const IndexPage: React.FC = () => {
+    const [openPostUI, setOpenPostUI] = React.useState(false);
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
     useEffect(() => {
@@ -47,8 +48,24 @@ const ConfigPage: React.FC = () => {
         }
     ];
 
+    const openPostScreen = () => {
+        setOpenPostUI(true);
+    }
+    const togglePostScreen = (open: boolean) => () => {
+        setOpenPostUI(open);
+    }
+
     return (
-        <Box sx={{position: "relative"}}>
+        <Box sx={{ position: "relative" }}>
+            <Drawer open={openPostUI} onClose={togglePostScreen(false)} sx={{
+                width: '100vw', // 画面の幅全体にする
+                '& .MuiDrawer-paper': {
+                    width: '100vw', // ドロワーのPaperコンポーネントも画面幅全体にする
+                    height: '100vh', // 画面の高さ全体にする
+                },
+            }}>
+                <PostPage onCloseScreen={togglePostScreen(false)} />
+            </Drawer>
             <Header title="Wellness" />
             <Box sx={{ pt: 15 }}>
                 <Typography variant='h1' style={{ marginLeft: 16 }}>Home</Typography>
@@ -86,9 +103,10 @@ const ConfigPage: React.FC = () => {
                     </Card>))
                 }
             </Box>
+            <Button onClick={openPostScreen} >Post</Button>
             <PostButton style={{ position: 'fixed', right: 24, bottom: 24 }} />
         </Box>
     );
 };
 
-export default ConfigPage;
+export default IndexPage;

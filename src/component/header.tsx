@@ -69,7 +69,15 @@ export default function Header(props: { title: string }) {
     );
 
     return (
-        <Box sx={{ maxWidth: 420, mx: 'auto', flexGrow: 1, width: '100%', position: 'fixed', borderBottom: '1px solid #eee' }}>
+        <Box sx={{ 
+            maxWidth: 420,
+            mx: 'auto',
+            flexGrow: 1,
+            width: '100%',
+            position: 'fixed',
+            borderBottom: '1px solid #eee',
+            zIndex: 10,
+        }}>
             <AppBar position="static" elevation={0} sx={{ color: grey[900], backgroundColor: grey[50] }}>
                 <Toolbar>
                     <Box onClick={toggleDrawer(true)} sx={{
