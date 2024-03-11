@@ -9,19 +9,28 @@ interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
 const PostButton: React.FC<MyComponentProps> = (props) => {
     const [openPostUI, setOpenPostUI] = React.useState(false);
 
-    const openPostScreen = () => {
-        //navigate('/post');
-        toggleDrawer(true);
-        console.log('open screen -> post');
-    }
-
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpenPostUI(newOpen);
     };
 
+    const openPostScreen = () => {
+        setOpenPostUI(true);
+    }
+    const togglePostScreen = (open: boolean) => () => {
+        setOpenPostUI(open);
+    }
+
     return (
         <>
-            <Paper elevation={4} {...props} sx={{
+            <Drawer open={openPostUI} onClose={togglePostScreen(false)} sx={{
+                width: '100vw', // 画面の幅全体にする
+                '& .MuiDrawer-paper': {
+                    width: '100vw', // ドロワーのPaperコンポーネントも画面幅全体にする
+                    height: '100vh', // 画面の高さ全体にする
+                },
+            }}>
+                <PostPage onCloseScreen={togglePostScreen(false)} />
+            </Drawer>            <Paper elevation={4} {...props} sx={{
                 display: 'inline-flex',
                 borderRadius: '50%',
             }}>
