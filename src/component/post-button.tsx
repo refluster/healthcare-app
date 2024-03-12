@@ -18,9 +18,9 @@ const PostButton: React.FC<MyComponentProps> = ({onPostClicked, ...props}) => {
     }
 
     const getPostText = (text: string) => {
+        togglePostScreen(false);
         onPostClicked(text);
         console.log(text);
-        togglePostScreen(false);
     }
 
     return (

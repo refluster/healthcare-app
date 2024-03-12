@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Typography, Button, Card, CardContent, CardActions, Drawer } from '@mui/material';
+import { Box, Typography, Button, Card, CardContent, CardActions } from '@mui/material';
 import Header from '../component/header';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
@@ -13,7 +13,6 @@ type Message = {
 }
 
 const IndexPage: React.FC = () => {
-    const [openPostUI, setOpenPostUI] = React.useState(false);
     const [messages, setMessages] = React.useState([] as Message[]);
     const [input, setInput] = React.useState('');
 
@@ -40,11 +39,9 @@ const IndexPage: React.FC = () => {
             const msg = response.data.wellness_expert_advice.advice;
             console.log(msg);
             setMessages(msg);
-            //setOutput((prev: Output) => ({ ...prev, ...{ message: response.data.message } }));
             console.log(response);
         } catch (error) {
             console.error('API call failed:', error);
-            //setOutput((prev: Output) => { prev.message = 'Error calling API'; return prev });
         }
     };
     
