@@ -4,9 +4,10 @@ import AddIcon from '@mui/icons-material/Add';
 import PostPage from '../page/post';
 
 interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
+    onPostClicked: (text: string) => void;
 }
 
-const PostButton: React.FC<MyComponentProps> = (props) => {
+const PostButton: React.FC<MyComponentProps> = ({onPostClicked, ...props}) => {
     const [openPostUI, setOpenPostUI] = React.useState(false);
 
     const openPostScreen = () => {
@@ -16,16 +17,22 @@ const PostButton: React.FC<MyComponentProps> = (props) => {
         setOpenPostUI(open);
     }
 
+    const getPostText = (text: string) => {
+        onPostClicked(text);
+        console.log(text);
+        togglePostScreen(false);
+    }
+
     return (
         <>
             <Drawer open={openPostUI} anchor="bottom" onClose={togglePostScreen(false)} sx={{
-                width: '100vw', // 画面の幅全体にする
+                width: '100vw',
                 '& .MuiDrawer-paper': {
-                    width: '100vw', // ドロワーのPaperコンポーネントも画面幅全体にする
-                    height: '100vh', // 画面の高さ全体にする
+                    width: '100vw',
+                    height: '100vh',
                 },
             }}>
-                <PostPage onCloseScreen={togglePostScreen(false)} />
+                <PostPage onCloseScreen={togglePostScreen(false)} onPostClicked={getPostText} />
             </Drawer>
             <Paper elevation={4} {...props} sx={{
                 display: 'inline-flex',

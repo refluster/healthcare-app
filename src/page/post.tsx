@@ -21,14 +21,15 @@ const OutputNull: Output = {
 
 interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
     onCloseScreen: () => void;
+    onPostClicked: (text: string) => void;
 }
 
-const PostPage: React.FC<MyComponentProps> = ({ onCloseScreen }) => {
+const PostPage: React.FC<MyComponentProps> = ({ onCloseScreen, onPostClicked }) => {
     const [input1, setInput1] = useState('');
     const [output, setOutput] = useState(OutputNull);
 
     const doPost = async () => {
-
+        onPostClicked(input1);
         /*
         const baseUrl = 'https://cykubbplcd.execute-api.us-west-2.amazonaws.com/Prod';
         try {
