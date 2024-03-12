@@ -22,7 +22,8 @@ const IndexPage: React.FC = () => {
         (async () => {
             console.log(user);
             if (!user) {
-                navigate('/intro');
+                // TBD
+                //navigate('/intro');
             }
         })();
     }, [user, navigate]);
