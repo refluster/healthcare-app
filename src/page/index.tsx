@@ -22,8 +22,7 @@ const IndexPage: React.FC = () => {
         (async () => {
             console.log(user);
             if (!user) {
-                // TBD
-                //navigate('/intro');
+                navigate('/intro');
             }
         })();
     }, [user, navigate]);
@@ -33,14 +32,18 @@ const IndexPage: React.FC = () => {
         setInput(text);
         try {
             const response = await axios.post(`${baseUrl}/healthcare-gpt/generic`, {
-                message: text,
+                message: text + 'お金の使い方を、自らのために投資する、支払いは消費ではなく投資である意味づけ、そんな解釈について、3つフィードバックしてください。',
                 content: "例えば、お金を使い過ぎたように見えても、それが消費か、自身への投資か、をしっかり把握する、見方を変える（誰かが明示的にフィードバックする）だけでも幸福度は変わります。この後者の場合は、資産の削減ではなく、資産の置き換えで、自己資産は減らないどころか拡大もありえます。この資産には有形も無形もあるからです。あなたは人をより高い幸福に導くための、関係しそうな体系知識、産業分野、フレームワーク標準などを整理し、各々の観点で一般人に分かりやすく、少し科学的な体系の説明を少しだけ取り入れながら助言します。助言には、ネクストアクションの掲示もあれば、良い取り組みは継続できるよう素直に認め誉めること、もあります。助言はトータルで5個、提供します。",
                 type: 'expert',
             });
             const msg = response.data.wellness_expert_advice.advice;
-            console.log(msg);
-            setMessages(msg);
-            console.log(response);
+            const response2 = await axios.post(`${baseUrl}/healthcare-gpt/generic`, {
+                message: text + '自らのウェルネスを高め、広義の意味で健康になる助言を3つフィードバックして。生きがい、やる気、自己達成感、満足感、などが重要な指標です。',
+                content: "例えば、お金を使い過ぎたように見えても、それが消費か、自身への投資か、をしっかり把握する、見方を変える（誰かが明示的にフィードバックする）だけでも幸福度は変わります。この後者の場合は、資産の削減ではなく、資産の置き換えで、自己資産は減らないどころか拡大もありえます。この資産には有形も無形もあるからです。あなたは人をより高い幸福に導くための、関係しそうな体系知識、産業分野、フレームワーク標準などを整理し、各々の観点で一般人に分かりやすく、少し科学的な体系の説明を少しだけ取り入れながら助言します。助言には、ネクストアクションの掲示もあれば、良い取り組みは継続できるよう素直に認め誉めること、もあります。助言はトータルで5個、提供します。",
+                type: 'expert',
+            });
+            const msg2 = response2.data.wellness_expert_advice.advice;
+            setMessages([...msg, ...msg2]);
         } catch (error) {
             console.error('API call failed:', error);
         }

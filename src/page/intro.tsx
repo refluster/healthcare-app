@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import Header from '../component/header';
-import { signInWithRedirect } from '@firebase/auth';
+import { signInWithPopup } from '@firebase/auth';
 import { auth, provider } from '../lib/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from "react-router-dom";
@@ -11,12 +11,10 @@ const IntroPage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        (async () => {
-            console.log(user);
-            if (user) {
-                navigate('/');
-            }
-        })();
+        console.log('user', user);
+        if (user) {
+            navigate('/');
+        }
     }, [user, navigate]);
 
     return (
@@ -54,8 +52,8 @@ function SignOutButton() {
 
 function SignInButton() {
     const signInWithGoogle = () => {
-        signInWithRedirect(auth, provider);
-        //        signInWithPopup(auth, provider);
+        //signInWithRedirect(auth, provider);
+        signInWithPopup(auth, provider);
     }
 
     return <Box onClick={signInWithGoogle} sx={{
