@@ -1,8 +1,12 @@
-//import React, { useEffect, useRef, useState } from 'react';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from '@mui/material';
-//import { Bar, Chart as ChartJS } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
+//import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import Header from '../component/header';
+
+Chart.register(...registerables);
+//ChartJS.register(ArcElement, Tooltip, Legend);
 
 type Wellness = {
     social: number,
@@ -30,6 +34,7 @@ const StatsPage: React.FC = () => {
                 <WellnessWheel wellness={wellness} />
             </Box>
             <Box>
+                <BarChart />
             </Box>
         </Box>
     );
@@ -92,15 +97,14 @@ const WellnessWheel: React.FC<{ wellness: Wellness | undefined }> = ({ wellness 
     </>;
 };
 
-/*
 const BarChart = () => {
-    const chartRef = useRef<ChartJS>(null);
+    const chartRef = useRef<null>(null);
 
     useEffect(() => {
         // コンポーネントのアンマウント時にチャートを破棄する
         return () => {
             if (chartRef.current) {
-                chartRef.current.destroy();
+                (chartRef.current as any).destroy!();
             }
         };
     }, []);
@@ -165,6 +169,5 @@ const BarChart = () => {
         </Box>
     );
 };
-*/
 
 export default StatsPage;
