@@ -13,12 +13,16 @@ import IndexPage from './page';
 import ConfigPage from './page/config';
 import HealthcarePage from './page/healthcare';
 import IntroPage from './page/intro';
+import StatsPage from './page/stats';
 
 function routes() {
   return [
     {
       path: "/",
       element: <IndexPage />
+    }, {
+      path: "/stats",
+      element: <StatsPage />
     }, {
       path: "/healthcare",
       element: <HealthcarePage />
