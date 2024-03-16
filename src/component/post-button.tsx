@@ -7,32 +7,33 @@ interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
     onPostClicked: (text: string) => void;
 }
 
-const PostButton: React.FC<MyComponentProps> = ({onPostClicked, ...props}) => {
+const PostButton: React.FC<MyComponentProps> = ({ onPostClicked, ...props }) => {
     const [openPostUI, setOpenPostUI] = React.useState(false);
 
     const openPostScreen = () => {
         setOpenPostUI(true);
     }
-    const togglePostScreen = (open: boolean) => () => {
-        setOpenPostUI(open);
+
+    const close = () => {
+        setOpenPostUI(false);
     }
 
-    const getPostText = (text: string) => {
-        togglePostScreen(false);
+    const deliverPostAndClose = (text: string) => {
+        setOpenPostUI(false);
         onPostClicked(text);
         console.log(text);
     }
 
     return (
         <>
-            <Drawer open={openPostUI} anchor="bottom" onClose={togglePostScreen(false)} sx={{
+            <Drawer open={openPostUI} anchor="bottom" onClose={close} sx={{
                 width: '100vw',
                 '& .MuiDrawer-paper': {
                     width: '100vw',
                     height: '100vh',
                 },
             }}>
-                <PostPage onCloseScreen={togglePostScreen(false)} onPostClicked={getPostText} />
+                <PostPage onCloseScreen={close} onPostClicked={deliverPostAndClose} />
             </Drawer>
             <Paper elevation={4} {...props} sx={{
                 display: 'inline-flex',
