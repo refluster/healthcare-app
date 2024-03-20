@@ -7,16 +7,19 @@ import { useNavigate } from "react-router-dom";
 import PostButton from '../component/post-button';
 import axios from 'axios';
 import * as api from '../api';
+import { Journal } from '../model';
 
-type Message = {
+/*
+type Journal = {
     author: 'user' | 'system';
     userId: string;
     title?: string;
     content: string;
 }
+*/
 
 const IndexPage: React.FC = () => {
-    const [messages, setMessages] = React.useState([] as Message[]);
+    const [journals, setJournals] = React.useState([] as Journal[]);
 
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
@@ -28,16 +31,19 @@ const IndexPage: React.FC = () => {
                 return;
             }
             const journals = await api.getJournals(user.uid);
-            setMessages(journals)
+            setJournals(journals)
         })();
     }, [user, navigate]);
 
     const doPost = async (text: string) => {
         const baseUrl = 'https://cykubbplcd.execute-api.us-west-2.amazonaws.com/Prod';
-        setMessages([{
+        setJournals([{
             author: 'user',
             userId: user!.uid,
             content: text,
+            id: '',
+            createdAt: '',
+            updatedAt: '',
         }])
         try {
             const response = await axios.post(`${baseUrl}/healthcare-gpt/generic`, {
@@ -52,7 +58,7 @@ const IndexPage: React.FC = () => {
                 type: 'expert',
             });
             const msg2 = response2.data.wellness_expert_advice.advice;
-            setMessages(prev => {
+            setJournals(prev => {
                 return [...prev, ...msg, ...msg2]
             });
             console.log(text, [...msg, ...msg2])
@@ -80,31 +86,12 @@ const IndexPage: React.FC = () => {
             <Header title="Wellness" />
             <Box sx={{ pt: 15 }}>
                 <Typography variant='h1' style={{ marginLeft: 16 }}>Home</Typography>
-                {/*
-                <Card sx={{ my: 2 }}>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            <Box sx={{
-                                backgroundColor: '#888',
-                                backgroundImage: `url(${user?.photoURL || ''})`,
-                                backgroundSize: 'contain',
-                                width: 28, height: 28,
-                                borderRadius: '50%',
-                                mr: 2,
-                            }} />
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {input}
-                        </Typography>
-                    </CardContent>
-                </Card>
-                        */}
                 {
-                    messages.map(d => (
+                    journals.map(d => (
                         <Card sx={{ my: 2 }}>
                             <CardContent>
                                 {
-                                    d.author === 'user' ? (
+                                    d.author === 'user' && (
                                         <Typography gutterBottom variant="h5" component="div">
                                             <Box sx={{
                                                 backgroundColor: '#888',
@@ -115,7 +102,7 @@ const IndexPage: React.FC = () => {
                                                 mr: 2,
                                             }} />
                                         </Typography>
-                                    ) : (<></>)
+                                    )
                                 }
                                 <Typography gutterBottom variant="h5" component="div">
                                     {d.title}
