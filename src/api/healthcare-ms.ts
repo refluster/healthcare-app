@@ -24,7 +24,7 @@ const createJournals = async (_rowItems: Omit<Journal, 'id' | 'createdAt' | 'upd
         content: JSON.stringify({title: item.title, content: item.content}),
     }))
     const ret = await http.post('/journals', inputItems);
-    const items = <Journal[]>ret.data;
+    const items: Journal[] = ret.data;
     return items;
 };
 
@@ -35,7 +35,7 @@ const getJournals = async (userId: string) => {
                 userId,
             }
         });
-        const items = <JournalDB[]>ret.data;
+        const items: JournalDB[] = ret.data;
         const journals: Journal[] = items.map(item => {
             const contentObj = JSON.parse(item.content);
             return {

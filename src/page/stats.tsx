@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
@@ -101,10 +101,10 @@ const BarChart = () => {
     const chartRef = useRef<null>(null);
 
     useEffect(() => {
-        // コンポーネントのアンマウント時にチャートを破棄する
+        const d = chartRef.current;
         return () => {
-            if (chartRef.current) {
-                (chartRef.current as any).destroy!();
+            if (d) {
+                (d as any).destroy!();
             }
         };
     }, []);

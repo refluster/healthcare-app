@@ -17,7 +17,6 @@ type Message = {
 
 const IndexPage: React.FC = () => {
     const [messages, setMessages] = React.useState([] as Message[]);
-    const [input, setInput] = React.useState('');
 
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
@@ -35,7 +34,6 @@ const IndexPage: React.FC = () => {
 
     const doPost = async (text: string) => {
         const baseUrl = 'https://cykubbplcd.execute-api.us-west-2.amazonaws.com/Prod';
-        //setInput(text);
         setMessages([{
             author: 'user',
             userId: user!.uid,
@@ -58,7 +56,7 @@ const IndexPage: React.FC = () => {
                 return [...prev, ...msg, ...msg2]
             });
             console.log(text, [...msg, ...msg2])
-            const input = [
+            const inputJournals = [
                 {
                     userId: user?.uid,
                     author: 'user',
@@ -70,8 +68,8 @@ const IndexPage: React.FC = () => {
                     author: 'system',
                 }))
             ];
-            console.log(input);
-            api.createJournals(input);
+            console.log(inputJournals);
+            api.createJournals(inputJournals);
         } catch (error) {
             console.error('API call failed:', error);
         }

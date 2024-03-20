@@ -7,7 +7,7 @@ import { Divider, Drawer, Link, List, ListItem, ListItemIcon, ListItemText, List
 import { grey } from '@mui/material/colors';
 import HomeIcon from '@mui/icons-material/Home';
 import TimelineIcon from '@mui/icons-material/Timeline';
-import ArticleIcon from '@mui/icons-material/Article';
+//import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
@@ -48,7 +48,7 @@ export default function Header(props: { title: string }) {
     const links = [
         { title: 'Home', url: '/', icon: <HomeIcon /> },
         { title: 'Stats', url: '/stats', icon: <TimelineIcon /> },
-        { title: 'Wellness', url: '/healthcare', icon: <ArticleIcon /> },
+    //    { title: 'Wellness', url: '/healthcare', icon: <ArticleIcon /> },
         { title: 'Setting', url: '/config', icon: <SettingsIcon /> },
     ];
     const list = () => (
