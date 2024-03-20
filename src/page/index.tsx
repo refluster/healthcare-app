@@ -28,7 +28,8 @@ const IndexPage: React.FC = () => {
                 navigate('/intro');
                 return;
             }
-            //api.getJournals(user.uid);
+            const journals = await api.getJournals(user.uid);
+            setMessages(journals)
         })();
     }, [user, navigate]);
 
