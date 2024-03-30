@@ -21,7 +21,6 @@ const StatsPage: React.FC = () => {
         (async () => {
             console.log(user);
             if (!user) {
-                navigate('/intro');
                 return;
             }
             const dailyStats = await api.getDailyStats(user.uid);
@@ -46,9 +45,11 @@ const StatsPage: React.FC = () => {
                 {dailyStats.length > 0 && (<WellnessWheel wellness={dailyStats[0].wellness} />)}
                 
             </Box>
+            {/*
             <Box>
                 <BarChart />
             </Box>
+            */}
         </Box>
     );
 };
