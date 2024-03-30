@@ -4,19 +4,31 @@ import { Bar } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 //import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import Header from '../component/header';
+import { auth } from '../lib/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
+import { DailyStats, Wellness } from '../model';
+import * as api from '../api';
 
 Chart.register(...registerables);
 //ChartJS.register(ArcElement, Tooltip, Legend);
 
-type Wellness = {
-    social: number,
-    financial: number,
-    emotional: number,
-    physical: number,
-    spiritual: number,
-    intellectual: number,
-};
 const StatsPage: React.FC = () => {
+    const [dailyStats, setDailyStats] = React.useState([] as DailyStats[]);
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate();
+    useEffect(() => {
+        (async () => {
+            console.log(user);
+            if (!user) {
+                navigate('/intro');
+                return;
+            }
+            const dailyStats = await api.getDailyStats(user.uid);
+            setDailyStats(dailyStats)
+        })();
+    }, [user, navigate]);
+
     const wellness = {
         social: .7,
         financial: .4,
@@ -31,7 +43,8 @@ const StatsPage: React.FC = () => {
             <Header title="Stats" />
             <Box sx={{ pt: 15, mx: 2 }}>
                 <Typography variant="h1">Stats</Typography>
-                <WellnessWheel wellness={wellness} />
+                {dailyStats.length > 0 && (<WellnessWheel wellness={dailyStats[0].wellness} />)}
+                
             </Box>
             <Box>
                 <BarChart />
@@ -58,8 +71,6 @@ const WellnessWheel: React.FC<{ wellness: Wellness | undefined }> = ({ wellness 
         financial: 240,
         intellectual: 300
     };
-
-    // ウェルネスオブジェクトの値に基づいて透明度を設定
 
     if (wellness === undefined) {
         return <Box sx={{ w: 200, h: 200 }}></Box>;

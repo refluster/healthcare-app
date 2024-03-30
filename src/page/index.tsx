@@ -31,6 +31,7 @@ const IndexPage: React.FC = () => {
                 return;
             }
             const journals = await api.getJournals(user.uid);
+            console.log(journals);
             setJournals(journals)
         })();
     }, [user, navigate]);
