@@ -86,11 +86,10 @@ const IndexPage: React.FC = () => {
         <Box sx={{ position: "relative" }}>
             <Header title="Wellness" />
             <Box sx={{ pt: 15 }}>
-                <Typography variant='h1' style={{ marginLeft: 16 }}>Home</Typography>
+                <Typography variant='h4' style={{ marginLeft: 16 }}>Home</Typography>
                 {
                     journals.map(d => (
-                        <Card sx={{ my: 2 }}>
-                            <CardContent>
+                        <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee' }}>
                                 {
                                     d.author === 'user' && (
                                         <Typography gutterBottom variant="h5" component="div">
@@ -111,12 +110,7 @@ const IndexPage: React.FC = () => {
                                 <Typography variant="body2" color="text.secondary">
                                     {d.content}
                                 </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">Try</Button>
-                                <Button size="small">Learn More</Button>
-                            </CardActions>
-                        </Card>
+                        </Box>
                     ))
                 }
             </Box>

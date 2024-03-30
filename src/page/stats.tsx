@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { DailyStats } from '../model';
 import * as api from '../api';
 import WellnessWheel from '../component/wellness';
+import LineChart from '../component/line-chart';
 
 Chart.register(...registerables);
 //ChartJS.register(ArcElement, Tooltip, Legend);
@@ -19,7 +20,6 @@ const StatsPage: React.FC = () => {
     const navigate = useNavigate();
     useEffect(() => {
         (async () => {
-            console.log(user);
             if (!user) {
                 return;
             }
@@ -32,11 +32,20 @@ const StatsPage: React.FC = () => {
         <Box>
             <Header title="Stats" />
             <Box sx={{ pt: 15, mx: 2 }}>
-                <Typography variant="h1">Wellness</Typography>
+                <Typography variant="h4">Wellness</Typography>
                 {
                     dailyStats.length > 0 && (<>
                         <Box>{ dailyStats[0].date }</Box>
                         <WellnessWheel wellness={dailyStats[0].wellness} />
+                    </>)
+                }
+            </Box>
+            <Box sx={{ pt: 8, mx: 2 }}>
+                <Typography variant="h4">Physical wellness</Typography>
+                {
+                    dailyStats.length > 0 && (<>
+                        <Box>{ dailyStats[0].date }</Box>
+                        <LineChart data={dailyStats.map(d => ({date: d.date, value: d.wellness.physical}))} />
                     </>)
                 }
             </Box>
