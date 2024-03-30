@@ -52,7 +52,7 @@ const WellnessWheel: React.FC<{ wellness: Wellness | undefined }> = ({ wellness 
                 </li>
             ))}
         </ul>
-        <Box sx={{ width: 140, height: 140, mx: 'auto' }} style={wheelStyle}></Box>
+        <Box sx={{ width: 140, height: 140, mx: 'auto', mt: 4 }} style={wheelStyle}></Box>
     </>;
 };
 

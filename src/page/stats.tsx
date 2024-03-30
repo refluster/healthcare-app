@@ -35,19 +35,34 @@ const StatsPage: React.FC = () => {
                 <Typography variant="h4">Wellness</Typography>
                 {
                     dailyStats.length > 0 && (<>
-                        <Box>{ dailyStats[0].date }</Box>
+                        <Box>{dailyStats[0].date}</Box>
                         <WellnessWheel wellness={dailyStats[0].wellness} />
                     </>)
                 }
             </Box>
             <Box sx={{ pt: 8, mx: 2 }}>
-                <Typography variant="h4">Physical wellness</Typography>
-                {
-                    dailyStats.length > 0 && (<>
-                        <Box>{ dailyStats[0].date }</Box>
-                        <LineChart data={dailyStats.map(d => ({date: d.date, value: d.wellness.physical}))} />
-                    </>)
-                }
+                <Typography variant="h5">Social wellness</Typography>
+                <LineChart data={dailyStats.map(d => ({ date: d.date, value: d.wellness.social }))} />
+            </Box>
+            <Box sx={{ pt: 8, mx: 2 }}>
+                <Typography variant="h5">Spiritual wellness</Typography>
+                <LineChart data={dailyStats.map(d => ({ date: d.date, value: d.wellness.spiritual }))} />
+            </Box>
+            <Box sx={{ pt: 8, mx: 2 }}>
+                <Typography variant="h5">Intellectual wellness</Typography>
+                <LineChart data={dailyStats.map(d => ({ date: d.date, value: d.wellness.intellectual }))} />
+            </Box>
+            <Box sx={{ pt: 8, mx: 2 }}>
+                <Typography variant="h5">Emotional wellness</Typography>
+                <LineChart data={dailyStats.map(d => ({ date: d.date, value: d.wellness.emotional }))} />
+            </Box>
+            <Box sx={{ pt: 8, mx: 2 }}>
+                <Typography variant="h5">Financial wellness</Typography>
+                <LineChart data={dailyStats.map(d => ({ date: d.date, value: d.wellness.financial }))} />
+            </Box>
+            <Box sx={{ pt: 8, mx: 2 }}>
+                <Typography variant="h5">Physical wellness</Typography>
+                <LineChart data={dailyStats.map(d => ({ date: d.date, value: d.wellness.physical }))} />
             </Box>
             {/*
             <Box>
