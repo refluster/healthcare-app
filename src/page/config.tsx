@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Slider, Switch, TextField } from '@mui/material';
+import { Box, Slider, Switch, TextField, Typography } from '@mui/material';
 import Header from '../component/header';
 
 const IndexPage: React.FC = () => {
@@ -12,10 +12,12 @@ const IndexPage: React.FC = () => {
 
     return (
         <Box>
-            <Header title="Config" />
-            <Box sx={{ mx: 2 }}>
-                <h1>Custom your app</h1>
+            <Header title="Setting" />
+            <Box sx={{ pt: 15, mx: 2 }}>
+                <Typography variant="h4">Personalization</Typography>
+                <Box>This is to be a config page, e.g. profile setting.</Box>
                 <Slider
+                    sx={{mt: 4}}
                     size="medium"
                     defaultValue={70}
                     aria-label="Small"
