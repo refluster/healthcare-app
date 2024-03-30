@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, TextField, Button, Link } from '@mui/material';
+import { Box, TextField, Button, Link, Slider } from '@mui/material';
 
 interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
     onCloseScreen: () => void;
@@ -7,6 +7,8 @@ interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const PostPage: React.FC<MyComponentProps> = ({ onCloseScreen, onPostClicked }) => {
+    const menuIdx = Math.floor(Math.random() * 3);
+
     const doPost = async (input: string) => {
         onPostClicked(input);
     };
@@ -14,11 +16,14 @@ const PostPage: React.FC<MyComponentProps> = ({ onCloseScreen, onPostClicked }) 
     const close = () => {
         onCloseScreen();
     }
-    return (
-        true ?
-            <ThreeQPost onCloseScreen={close} onPostClicked={doPost} /> :
-            <FreeTextPost onCloseScreen={close} onPostClicked={doPost} />
-    );
+
+    const menu = [
+        (<SliderPost onCloseScreen={close} onPostClicked={doPost} />),
+        (<ThreeQPost onCloseScreen={close} onPostClicked={doPost} />),
+        (<FreeTextPost onCloseScreen={close} onPostClicked={doPost} />),
+    ]
+
+    return menu[menuIdx];
 };
 
 const FreeTextPost: React.FC<MyComponentProps> = ({ onCloseScreen, onPostClicked }) => {
@@ -141,6 +146,60 @@ const ThreeQPost: React.FC<MyComponentProps> = ({ onCloseScreen, onPostClicked }
                         onChange={(e) => setInput3(e.target.value)}
                     />
                 </Box>
+            </Box>
+        </Box>
+    )
+};
+
+const SliderPost: React.FC<MyComponentProps> = ({ onCloseScreen, onPostClicked }) => {
+    const [sleep, setSleep] = useState(0);
+    const [condition, setCondition] = useState(0);
+
+    const doPost = async () => {
+        //onPostClicked('input1');
+        const post =
+            `昨日は${sleep}%くらい寝れた。` +
+            `今の気分は${condition}%くらい良い感じ。`;
+        onPostClicked(post);
+    };
+
+    const close = () => {
+        onCloseScreen();
+    }
+
+    return (
+        <Box>
+            <Box sx={{
+                height: 60,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                mx: 2
+            }}>
+                <Link onClick={close} underline="none">&lt;</Link>
+                <Button variant='contained' onClick={doPost}>Post</Button>
+            </Box>
+            <Box sx={{ mb: 8 }}>
+                <Box sx={{ m: 2 }}>今の気分はどんな感じですか？（Bad - Good）</Box>
+                <Slider
+                    sx={{ mx: 2 }}
+                    size="medium"
+                    defaultValue={70}
+                    aria-label="Small"
+                    valueLabelDisplay="auto"
+                    onChange={(e, v) => setCondition(v as number)}
+                />
+            </Box>
+            <Box sx={{ mb: 8 }}>
+                <Box sx={{ m: 2 }}>昨日はどの程度よく寝れましたか？（寝不足 - ぐっすり）</Box>
+                <Slider
+                    sx={{ mx: 2 }}
+                    size="medium"
+                    defaultValue={70}
+                    aria-label="Small"
+                    valueLabelDisplay="auto"
+                    onChange={(e, v) => setSleep(v as number)}
+                />
             </Box>
         </Box>
     )
