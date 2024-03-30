@@ -36,7 +36,9 @@ const getJournals = async (userId: string) => {
             }
         });
         const items: JournalDB[] = ret.data;
+        console.log(items);
         const journals: Journal[] = items.map(item => {
+            console.log(item);
             const contentObj = JSON.parse(item.content);
             return {
                 ...item,
@@ -46,6 +48,7 @@ const getJournals = async (userId: string) => {
         })
         return journals;
     } catch (e) {
+        console.error("ERR", e);
         return [] as Journal[];
     }
 };
