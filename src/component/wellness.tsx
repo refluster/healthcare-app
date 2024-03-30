@@ -41,18 +41,18 @@ const WellnessWheel: React.FC<{ wellness: Wellness | undefined }> = ({ wellness 
             {Object.entries(wellness || {}).map(([key, value]) => (
                 <li key={key} style={{ listStyleType: 'none', margin: '8px 0' }}>
                     {`${key}: ${value}`}
-                    <div style={{ background: '#eee', borderRadius: '4px', overflow: 'hidden' }}>
+                    <div style={{ background: '#eee', borderRadius: 3, overflow: 'hidden' }}>
                         <div style={{
                             background: colors[key].replace('OPACITY', '1   '),
                             width: `${value * 100}%`,
-                            height: '10px',
-                            borderRadius: '4px'
+                            height: 6,
+                            borderRadius: 3
                         }} />
                     </div>
                 </li>
             ))}
         </ul>
-        <Box sx={{ width: 200, height: 200, mx: 'auto' }} style={wheelStyle}></Box>
+        <Box sx={{ width: 140, height: 140, mx: 'auto' }} style={wheelStyle}></Box>
     </>;
 };
 
