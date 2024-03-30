@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DailyStats, Journal, Wellness } from '../model';
+import { DailyStats, Journal } from '../model';
 
 const baseURL = 'https://3nk07nnllh.execute-api.us-west-2.amazonaws.com/Prod';
 
