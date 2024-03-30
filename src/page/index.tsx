@@ -92,7 +92,7 @@ const IndexPage: React.FC = () => {
                         <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee' }}>
                                 {
                                     d.author === 'user' && (
-                                        <Typography gutterBottom variant="h5" component="div">
+                                        <Typography gutterBottom variant="h6" component="div">
                                             <Box sx={{
                                                 backgroundColor: '#888',
                                                 backgroundImage: `url(${user?.photoURL || ''})`,

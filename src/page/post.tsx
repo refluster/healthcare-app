@@ -7,6 +7,19 @@ interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const PostPage: React.FC<MyComponentProps> = ({ onCloseScreen, onPostClicked }) => {
+    const doPost = async (input: string) => {
+        onPostClicked(input);
+    };
+
+    const close = () => {
+        onCloseScreen();
+    }
+    return (
+        <FreeTextPost onCloseScreen={close} onPostClicked={doPost} />
+    );
+};
+
+const FreeTextPost: React.FC<MyComponentProps> = ({ onCloseScreen, onPostClicked }) => {
     const [input1, setInput1] = useState('');
 
     const doPost = async () => {
@@ -16,6 +29,7 @@ const PostPage: React.FC<MyComponentProps> = ({ onCloseScreen, onPostClicked }) 
     const close = () => {
         onCloseScreen();
     }
+
     return (
         <Box>
             <Box sx={{
@@ -42,7 +56,7 @@ const PostPage: React.FC<MyComponentProps> = ({ onCloseScreen, onPostClicked }) 
                 />
             </Box>
         </Box>
-    );
+    )
 };
 
 export default PostPage;
