@@ -30,9 +30,12 @@ const FinancialWellness: React.FC<Props> = ({ journal }) => {
             <Box sx={{
                 background: `linear-gradient(0.1turn, hsl(${colorH} 90% 50%), hsl(${colorL} 90% 50%))`,
                 textAlign: 'center',
+                height: 120,
+                display: 'flex',
+                alignItems: 'center',
+                px: 4,
             }}>
                 <Typography variant="body2" color="text.secondary" sx={{
-                    lineHeight: 12,
                     fontWeight: 900,
                     color: '#fff',
                 }}>
