@@ -15,7 +15,6 @@ type Content = {
 
 const FinancialWellness: React.FC<Props> = ({ journal }) => {
     const d = journal;
-    const content = d.content as Content;
     const colorH = (360 - 30 - 120) * (1 - d.content.score) + 120;
     const colorL = (360 - 120 + 30) * (1 - d.content.score) + 120 + 30;
     return (

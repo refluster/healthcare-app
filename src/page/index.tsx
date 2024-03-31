@@ -37,8 +37,8 @@ const IndexPage: React.FC = () => {
         try {
             const journals0 = await api.runApp({ appId: 'heart-health', userId: user!.uid, text: text });
             const journals1 = await api.runApp({ appId: 'financial-wellbeing', userId: user!.uid, text: text });
-            //const journals2 = await api.runApp({ appId: 'financial-wellbeing', userId: user!.uid, text: text });
-            const appJournals = [...journals0, ...journals1];
+            const journals2 = await api.runApp({ appId: 'bank-transaction', userId: user!.uid, text: text });
+            const appJournals = [...journals0, ...journals1, ...journals2];
 
             setJournals(prev => {
                 return [...prev, ...appJournals as Journal[]]
