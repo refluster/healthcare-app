@@ -1,9 +1,9 @@
 export type Journal = {
     id: string;
     userId: string;
-    author: 'user' | 'system';
+    author: string;
     title?: string;
-    content: string;
+    content: any;
     createdAt: string;
     updatedAt: string;
 }

@@ -11,7 +11,7 @@ const http = axios.create({
 type JournalDB = {
     id: string;
     userId: string;
-    author: 'user' | 'system';
+    author: string;
     content: string;
     createdAt: string;
     updatedAt: string;
