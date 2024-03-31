@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Journal } from '../model';
 import { User } from 'firebase/auth';
+import { formatRelative } from 'date-fns';
 
 interface Props {
     journal: Journal;
@@ -22,23 +23,35 @@ const FinancialWellness: React.FC<Props> = ({ journal }) => {
                     mr: 1.5,
                 }} />
             </Typography>
-            <Box sx={{
-                background: `linear-gradient(0.1turn, hsl(${colorH} 90% 50%), hsl(${colorL} 90% 50%))`,
-                textAlign: 'center',
-                height: 140,
-                display: 'flex',
-                alignItems: 'center',
-                px: 4,
-            }}>
-                <Typography variant="body2" color="text.secondary" sx={{
-                    fontWeight: 900,
-                    color: '#fff',
+            <Box>
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                    minWidth: '100%',
+                    mb: 1,
                 }}>
-                    {d.content.content}
-                    <Typography variant="body2">
-                        score: {d.content.score}
+                    <Box>{d.author}</Box>
+                    <Box sx={{ fontSize: 12 }}>{formatRelative(d.createdAt, new Date())}</Box>
+                </Box>
+                <Box sx={{
+                    background: `linear-gradient(0.1turn, hsl(${colorH} 90% 50%), hsl(${colorL} 90% 50%))`,
+                    textAlign: 'center',
+                    height: 140,
+                    display: 'flex',
+                    alignItems: 'center',
+                    px: 4,
+                }}>
+                    <Typography variant="body2" color="text.secondary" sx={{
+                        fontWeight: 900,
+                        color: '#fff',
+                    }}>
+                        {d.content.content}
+                        <Typography variant="body2">
+                            score: {d.content.score}
+                        </Typography>
                     </Typography>
-                </Typography>
+                </Box>
             </Box>
         </Box>
     );

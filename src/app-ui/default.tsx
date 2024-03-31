@@ -28,6 +28,7 @@ const DefaultAppUI: React.FC<Props> = ({ journal, user }) => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'baseline',
+                    mb: 1,
                 }}>
                     <Box>{d.author}</Box>
                     <Box sx={{fontSize: 12}}>{formatRelative(d.createdAt, new Date())}</Box>

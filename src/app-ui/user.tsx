@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Journal } from '../model';
 import { User } from 'firebase/auth';
+import { formatRelative } from 'date-fns';
 
 interface Props {
     journal: Journal;
@@ -23,6 +24,15 @@ const UserAppUI: React.FC<Props> = ({ journal, user }) => {
                 }} />
             </Typography>
             <Box>
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                    mb: 1,
+                }}>
+                    <Box>{d.author}</Box>
+                    <Box sx={{ fontSize: 12 }}>{formatRelative(d.createdAt, new Date())}</Box>
+                </Box>
                 {
                     d.content && typeof (d.content === 'string') && (
                         <Typography variant="body2" color="text.secondary">
