@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Journal } from '../model';
 import { User } from 'firebase/auth';
+import { formatRelative } from 'date-fns';
 
 interface Props {
     journal: Journal;
@@ -28,7 +29,7 @@ const DefaultAppUI: React.FC<Props> = ({ journal, user }) => {
                     justifyContent: 'space-between',
                 }}>
                     {d.author}
-
+                    {formatRelative(d.createdAt, new Date())}
                 </Box>
                 {
                     d.title && (
