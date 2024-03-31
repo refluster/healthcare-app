@@ -15,10 +15,8 @@ type Content = {
 
 const DefaultAppUI: React.FC<Props> = ({ journal, user }) => {
     const d = journal;
-    console.log(d);
     const content = (d.content && typeof (d.content) === 'string' && d.content) ||
         (d.content.content && typeof (d.content.content) && d.content.content) || '';
-    console.log({ content });
     return (
         <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee' }}>
             <Typography gutterBottom variant="h6" component="div">

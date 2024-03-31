@@ -22,7 +22,8 @@ const IndexPage: React.FC = () => {
                 navigate('/intro');
                 return;
             }
-            //const journals = await api.getJournals(user.uid);
+            const journals = await api.getJournals(user.uid);
+            /*
             const journals = [
                 {
                     "author": "heart-health",
@@ -68,6 +69,7 @@ const IndexPage: React.FC = () => {
                     "userId": "FmW3uDTmb8fOY7WmOiD3eOzwzvn1"
                 }
             ];
+            */
             setJournals(journals as Journal[])
         })();
     }, [user, navigate]);
@@ -82,8 +84,8 @@ const IndexPage: React.FC = () => {
             updatedAt: '',
         }])
         try {
-            /*
-                    // TBD to be refactored
+        /*
+        // TBD to be refactored
         const baseUrl = 'https://cykubbplcd.execute-api.us-west-2.amazonaws.com/Prod';
             const response = await axios.post(`${baseUrl}/healthcare-gpt/generic`, {
                 message: text + 'この行動や情動に対して、お金の使い方を、自らのために投資する、支払いは消費ではなく投資である意味づけ、そんな解釈について、3つフィードバックしてください。',
@@ -138,13 +140,14 @@ const IndexPage: React.FC = () => {
             */
             const journals0 = await api.runApp({ appId: 'heart-health', userId: user!.uid, text: text });
             const journals1 = await api.runApp({ appId: 'financial-wellbeing', userId: user!.uid, text: text });
+            //const journals2 = await api.runApp({ appId: 'financial-wellbeing', userId: user!.uid, text: text });
             const appJournals = [...journals0, ...journals1];
 
             setJournals(prev => {
                 return [...prev, ...appJournals as Journal[]]
             });
             console.log(appJournals);
-            //api.createJournals(inputJournals);
+            api.createJournals(appJournals);
         } catch (error) {
             console.error('API call failed:', error);
         }
