@@ -16,8 +16,8 @@ type Content = {
 const FinancialWellness: React.FC<Props> = ({ journal }) => {
     const d = journal;
     const content = d.content as Content;
-    const colorH = (360 - 30 - 120)*(1-d.content.score) + 120;
-    const colorL = (360 - 120 + 30)*(1-d.content.score) + 120 + 30;
+    const colorH = (360 - 30 - 120) * (1 - d.content.score) + 120;
+    const colorL = (360 - 120 + 30) * (1 - d.content.score) + 120 + 30;
     return (
         <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee' }}>
             <Typography gutterBottom variant="h6" component="div">
@@ -30,9 +30,13 @@ const FinancialWellness: React.FC<Props> = ({ journal }) => {
             </Typography>
             <Box sx={{
                 background: `linear-gradient(0.1turn, hsl(${colorH} 90% 50%), hsl(${colorL} 90% 50%))`,
-                height: 120,
+                textAlign: 'center',
             }}>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{
+                    lineHeight: 12,
+                    fontWeight: 900,
+                    color: '#fff',
+                }}>
                     {d.content.content}
                 </Typography>
             </Box>
