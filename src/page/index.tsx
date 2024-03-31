@@ -53,8 +53,7 @@ const IndexPage: React.FC = () => {
     return (
         <Box sx={{ position: "relative" }}>
             <Header title="Wellness" />
-            <Box sx={{ pt: 15 }}>
-                <Typography variant='h4' style={{ marginLeft: 16 }}>Home</Typography>
+            <Box sx={{ pt: 8 }}>
                 {
                     journals.map((d, idx) => {
                         if (d.author === 'financial-wellbeing') {

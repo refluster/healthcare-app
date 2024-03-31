@@ -18,25 +18,29 @@ const DefaultAppUI: React.FC<Props> = ({ journal, user }) => {
     const content = (d.content && typeof (d.content) === 'string' && d.content) ||
         (d.content.content && typeof (d.content.content) && d.content.content) || '';
     return (
-        <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee' }}>
+        <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee', display: 'flex' }}>
             <Typography gutterBottom variant="h6" component="div">
                 <Box sx={{
                     backgroundColor: '#888',
                     width: 28, height: 28,
                     borderRadius: '50%',
-                    mr: 2,
+                    mr: 1.5,
                 }} />
             </Typography>
-            {
-                d.title && (
-                    <Typography gutterBottom variant="h5" component="div">
-                        {d.title}
-                    </Typography>
-                )
-            }
-            <Typography variant="body2" color="text.secondary">
-                {content}
-            </Typography>
+            <Box>
+                {
+                    d.title && (
+                        <Typography gutterBottom component="div" sx={{
+                            fontWeight: 600,
+                        }}>
+                            {d.title}
+                        </Typography>
+                    )
+                }
+                <Typography variant="body2" color="text.secondary">
+                    {content}
+                </Typography>
+            </Box>
         </Box>
     );
 };

@@ -18,19 +18,19 @@ const FinancialWellness: React.FC<Props> = ({ journal }) => {
     const colorH = (360 - 30 - 120) * (1 - d.content.score) + 120;
     const colorL = (360 - 120 + 30) * (1 - d.content.score) + 120 + 30;
     return (
-        <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee' }}>
+        <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee', display: 'flex' }}>
             <Typography gutterBottom variant="h6" component="div">
                 <Box sx={{
                     backgroundColor: '#888',
                     width: 28, height: 28,
                     borderRadius: '50%',
-                    mr: 2,
+                    mr: 1.5,
                 }} />
             </Typography>
             <Box sx={{
                 background: `linear-gradient(0.1turn, hsl(${colorH} 90% 50%), hsl(${colorL} 90% 50%))`,
                 textAlign: 'center',
-                height: 120,
+                height: 140,
                 display: 'flex',
                 alignItems: 'center',
                 px: 4,
@@ -40,11 +40,11 @@ const FinancialWellness: React.FC<Props> = ({ journal }) => {
                     color: '#fff',
                 }}>
                     {d.content.content}
+                    <Typography variant="body2">
+                        score: {d.content.score}
+                    </Typography>
                 </Typography>
             </Box>
-            <Typography variant="body2" color="text.secondary">
-                {d.content.score}
-            </Typography>
         </Box>
     );
 };
