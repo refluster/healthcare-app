@@ -9,6 +9,7 @@ import axios from 'axios';
 import * as api from '../api';
 import { Journal } from '../model';
 import FinancialWellness from '../app-ui/financial-wellness';
+import DefaultAppUI from '../app-ui/default';
 
 const IndexPage: React.FC = () => {
     const [journals, setJournals] = React.useState([] as Journal[]);
@@ -22,7 +23,8 @@ const IndexPage: React.FC = () => {
                 navigate('/intro');
                 return;
             }
-            //const journals = await api.getJournals(user.uid);
+            const journals = await api.getJournals(user.uid);
+            /*
             const journals = [
                 {
                     "author": "financial-wellbeing",
@@ -33,6 +35,7 @@ const IndexPage: React.FC = () => {
                     "userId": "FmW3uDTmb8fOY7WmOiD3eOzwzvn1"
                 }
             ] as Journal[];
+            */
             console.log(user.uid, journals);
             setJournals(journals)
         })();
@@ -50,6 +53,7 @@ const IndexPage: React.FC = () => {
         }])
         try {
             /*
+                    // TBD to be refactored
             const response = await axios.post(`${baseUrl}/healthcare-gpt/generic`, {
                 message: text + 'この行動や情動に対して、お金の使い方を、自らのために投資する、支払いは消費ではなく投資である意味づけ、そんな解釈について、3つフィードバックしてください。',
                 content: "例えば、お金を使い過ぎたように見えても、それが消費か、自身への投資か、をしっかり把握する、見方を変える（誰かが明示的にフィードバックする）だけでも幸福度は変わります。この後者の場合は、資産の削減ではなく、資産の置き換えで、自己資産は減らないどころか拡大もありえます。この資産には有形も無形もあるからです。あなたは人をより高い幸福に導くための、関係しそうな体系知識、産業分野、フレームワーク標準などを整理し、各々の観点で一般人に分かりやすく、少し科学的な体系の説明を少しだけ取り入れながら助言します。助言には、ネクストアクションの掲示もあれば、良い取り組みは継続できるよう素直に認め誉めること、もあります。",
@@ -119,10 +123,13 @@ const IndexPage: React.FC = () => {
                     journals.map(d => {
                         if (d.author === 'financial-wellbeing') {
                             return (<FinancialWellness journal={d} />)
+                        } else {
+                            return (<DefaultAppUI journal={d} />)
                         }
                     })
 
                     /*
+                    // TBD to be refactored
                     journals.map(d => (
                         <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee' }}>
                             {
