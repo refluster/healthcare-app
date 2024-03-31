@@ -13,19 +13,25 @@ type Content = {
     score: number;
 }
 
-const DefaultAppUI: React.FC<Props> = ({ journal }) => {
+const UserAppUI: React.FC<Props> = ({ journal, user }) => {
     const d = journal;
     const content = d.content as Content;
     return (
         <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee' }}>
-            <Typography gutterBottom variant="h6" component="div">
-                <Box sx={{
-                    backgroundColor: '#888',
-                    width: 28, height: 28,
-                    borderRadius: '50%',
-                    mr: 2,
-                }} />
-            </Typography>
+            {
+                d.author === 'user' && (
+                    <Typography gutterBottom variant="h6" component="div">
+                        <Box sx={{
+                            backgroundColor: '#888',
+                            backgroundImage: `url(${user?.photoURL || ''})`,
+                            backgroundSize: 'contain',
+                            width: 28, height: 28,
+                            borderRadius: '50%',
+                            mr: 2,
+                        }} />
+                    </Typography>
+                )
+            }
             {
                 d.title && (
                     <Typography gutterBottom variant="h5" component="div">
@@ -44,4 +50,4 @@ const DefaultAppUI: React.FC<Props> = ({ journal }) => {
     );
 };
 
-export default DefaultAppUI;
+export default UserAppUI;

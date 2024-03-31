@@ -95,8 +95,37 @@ const getDailyStats = async (userId: string) => {
     }
 };
 
+type RunAppParam = {
+    appId: string;
+    userId: string;
+    text: string;
+}
+const runApp = async (param: RunAppParam) => {
+    const host = 'https://3nk07nnllh.execute-api.us-west-2.amazonaws.com/Prod';
+    const response = await axios.post(`${host}/app/run`, {
+        message: param.text,
+        apps: [
+            {
+                appId: param.appId,
+            }
+        ],
+        userId: param.userId
+    });
+    const functionRes = response.data.apps[0][param.appId];
+    const results: Omit<Journal, 'id' | 'createdAt' | 'updatedAt'>[] = functionRes.advice.map((d: any) => {
+        return {
+            author: param.appId,
+            content: d,
+            title: d.title,
+            userId: param.userId
+        } as Journal;
+    });;
+    return results;
+}
+
 export {
     createJournals,
     getJournals,
     getDailyStats,
+    runApp,
 };

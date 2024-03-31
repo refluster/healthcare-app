@@ -1,9 +1,11 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Journal } from '../model';
+import { User } from 'firebase/auth';
 
 interface Props {
     journal: Journal;
+    user: User;
 }
 
 type Content = {
@@ -24,13 +26,8 @@ const FinancialWellness: React.FC<Props> = ({ journal }) => {
                     mr: 2,
                 }} />
             </Typography>
-            {/*
-            <Typography gutterBottom variant="h5" component="div">
-                {d.title}
-            </Typography>
-            */}
             <Typography variant="body2" color="text.secondary">
-                {d.content.comment}
+                {d.content.content}
             </Typography>
             <Typography variant="body2" color="text.secondary">
                 {d.content.score}

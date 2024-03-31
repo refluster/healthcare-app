@@ -5,11 +5,11 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
 import { useNavigate } from "react-router-dom";
 import PostButton from '../component/post-button';
-import axios from 'axios';
 import * as api from '../api';
 import { Journal } from '../model';
 import FinancialWellness from '../app-ui/financial-wellness';
 import DefaultAppUI from '../app-ui/default';
+import UserAppUI from '../app-ui/user';
 
 const IndexPage: React.FC = () => {
     const [journals, setJournals] = React.useState([] as Journal[]);
@@ -83,6 +83,8 @@ const IndexPage: React.FC = () => {
             ];
             */
             // 'heart-health' 'financial-wellbeing'
+
+            /*
             const host = 'https://3nk07nnllh.execute-api.us-west-2.amazonaws.com/Prod';
             const response = await axios.post(`${host}/app/run`, {
                 message: text,
@@ -102,7 +104,10 @@ const IndexPage: React.FC = () => {
                     userId: user!.uid,
                 }
             ];
-            const appJournals = msg;
+            */
+            const journals0 = await api.runApp({ appId: 'heart-health', userId: user!.uid, text: text });
+            const journals1 = await api.runApp({ appId: 'financial-wellbeing', userId: user!.uid, text: text });
+            const appJournals = [...journals0, ...journals1];
 
             setJournals(prev => {
                 return [...prev, ...appJournals as Journal[]]
@@ -122,39 +127,13 @@ const IndexPage: React.FC = () => {
                 {
                     journals.map(d => {
                         if (d.author === 'financial-wellbeing') {
-                            return (<FinancialWellness journal={d} />)
+                            return (<FinancialWellness key={d.id} journal={d} user={user!} />)
+                        } else if (d.author === 'user') {
+                            return (<UserAppUI key={d.id} journal={d} user={user!} />)
                         } else {
-                            return (<DefaultAppUI journal={d} />)
+                            return (<DefaultAppUI key={d.id} journal={d} user={user!} />)
                         }
                     })
-
-                    /*
-                    // TBD to be refactored
-                    journals.map(d => (
-                        <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee' }}>
-                            {
-                                d.author === 'user' && (
-                                    <Typography gutterBottom variant="h6" component="div">
-                                        <Box sx={{
-                                            backgroundColor: '#888',
-                                            backgroundImage: `url(${user?.photoURL || ''})`,
-                                            backgroundSize: 'contain',
-                                            width: 28, height: 28,
-                                            borderRadius: '50%',
-                                            mr: 2,
-                                        }} />
-                                    </Typography>
-                                )
-                            }
-                            <Typography gutterBottom variant="h5" component="div">
-                                {d.title}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {d.content}
-                            </Typography>
-                        </Box>
-                    ))
-                    */
                 }
             </Box>
             <PostButton onPostClicked={doPost} style={{ position: 'fixed', right: 24, bottom: 24 }} />
