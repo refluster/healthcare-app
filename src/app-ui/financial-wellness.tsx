@@ -8,11 +8,6 @@ interface Props {
     user: User;
 }
 
-type Content = {
-    comment: string;
-    score: number;
-}
-
 const FinancialWellness: React.FC<Props> = ({ journal }) => {
     const d = journal;
     const colorH = (360 - 30 - 120) * (1 - d.content.score) + 120;

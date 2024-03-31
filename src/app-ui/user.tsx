@@ -8,14 +8,8 @@ interface Props {
     user: User;
 }
 
-type Content = {
-    comment: string;
-    score: number;
-}
-
 const UserAppUI: React.FC<Props> = ({ journal, user }) => {
     const d = journal;
-    const content = d.content as Content;
     return (
         <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee', display: 'flex' }}>
             <Typography gutterBottom variant="h6" component="div">

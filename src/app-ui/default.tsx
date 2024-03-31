@@ -8,11 +8,6 @@ interface Props {
     user: User;
 }
 
-type Content = {
-    comment: string;
-    score: number;
-}
-
 const DefaultAppUI: React.FC<Props> = ({ journal, user }) => {
     const d = journal;
     const content = (d.content && typeof (d.content) === 'string' && d.content) ||
@@ -28,6 +23,13 @@ const DefaultAppUI: React.FC<Props> = ({ journal, user }) => {
                 }} />
             </Typography>
             <Box>
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                }}>
+                    {d.author}
+
+                </Box>
                 {
                     d.title && (
                         <Typography gutterBottom component="div" sx={{
