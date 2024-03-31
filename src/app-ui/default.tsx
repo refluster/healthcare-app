@@ -13,9 +13,12 @@ type Content = {
     score: number;
 }
 
-const DefaultAppUI: React.FC<Props> = ({ journal }) => {
+const DefaultAppUI: React.FC<Props> = ({ journal, user }) => {
     const d = journal;
-    const content = d.content as Content;
+    console.log(d);
+    const content = (d.content && typeof (d.content) === 'string' && d.content) ||
+        (d.content.content && typeof (d.content.content) && d.content.content) || '';
+    console.log({ content });
     return (
         <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee' }}>
             <Typography gutterBottom variant="h6" component="div">
@@ -33,13 +36,9 @@ const DefaultAppUI: React.FC<Props> = ({ journal }) => {
                     </Typography>
                 )
             }
-            {
-                d.content && typeof (d.content === 'string') && (
-                    <Typography variant="body2" color="text.secondary">
-                        {d.content}
-                    </Typography>
-                )
-            }
+            <Typography variant="body2" color="text.secondary">
+                {content}
+            </Typography>
         </Box>
     );
 };
