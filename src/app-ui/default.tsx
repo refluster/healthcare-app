@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Journal } from '../model';
 import { User } from 'firebase/auth';
-import { formatDuration, formatRelative } from 'date-fns';
+import { formatRelative } from 'date-fns';
 
 interface Props {
     journal: Journal;
