@@ -23,12 +23,13 @@ const FinancialWellness: React.FC<Props> = ({ journal }) => {
                     mr: 1.5,
                 }} />
             </Typography>
-            <Box>
+            <Box sx={{
+                width: '100%',
+            }}>
                 <Box sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'baseline',
-                    minWidth: '100%',
                     mb: 1,
                 }}>
                     <Box>{d.author}</Box>
@@ -40,6 +41,7 @@ const FinancialWellness: React.FC<Props> = ({ journal }) => {
                     height: 140,
                     display: 'flex',
                     alignItems: 'center',
+                    justifyContent: 'center',
                     px: 4,
                 }}>
                     <Typography variant="body2" color="text.secondary" sx={{
