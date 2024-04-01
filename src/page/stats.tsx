@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Chart, registerables } from 'chart.js';
-//import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import Header from '../component/header';
 import { auth } from '../lib/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -23,7 +22,8 @@ const StatsPage: React.FC = () => {
             if (!user) {
                 return;
             }
-            const dailyStats = await api.getDailyStats(user.uid);
+            const dailyStats = (await api.getDailyStats(user.uid))
+                .reverse();
             setDailyStats(dailyStats)
         })();
     }, [user, navigate]);
@@ -64,11 +64,6 @@ const StatsPage: React.FC = () => {
                 <Typography variant="h5">Physical wellness</Typography>
                 <LineChart data={dailyStats.map(d => ({ date: d.date, value: d.wellness.physical }))} />
             </Box>
-            {/*
-            <Box>
-                <BarChart />
-            </Box>
-            */}
         </Box>
     );
 };

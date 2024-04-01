@@ -13,7 +13,6 @@ const BarChart = () => {
             }
         };
     }, []);
-
     const data = {
         labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
         datasets: [
@@ -56,21 +55,7 @@ const BarChart = () => {
 
     return (
         <Box>
-            <Box>
-                <Typography variant="h5" component="h2">
-                    Daily Average
-                </Typography>
-                <Typography variant="h6">
-                    1h 25m
-                </Typography>
-                <Typography color="textSecondary">
-                    ↑ 47% from last week
-                </Typography>
-                <Bar data={data} options={options} ref={chartRef} />
-                <Typography color="textSecondary">
-                    Updated today 11:26
-                </Typography>
-            </Box>
+            <Bar data={data} options={options} ref={chartRef} />
         </Box>
     );
 };

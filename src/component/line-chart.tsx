@@ -2,6 +2,7 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 import { Box } from '@mui/material';
+import { format } from 'date-fns';
 
 Chart.register(...registerables);
 
@@ -16,7 +17,7 @@ interface LineChartProps {
 
 const LineChart: React.FC<LineChartProps> = ({ data }) => {
     const chartData = {
-        labels: data.map(d => d.date),
+        labels: data.map(d => format(d.date, 'ccccc')),
         datasets: [
             {
                 label: 'Value',

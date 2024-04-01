@@ -28,7 +28,6 @@ const WellnessWheel: React.FC<{ wellness: Wellness | undefined }> = ({ wellness 
     const gradArr = Object.entries(wellness).splice(0, 6).map(([key, value]) =>
         `${angles[key]}deg, ${colors[key].replace('OPACITY', '0')} ${25 * (1 - value) + 45}%, ${colors[key].replace('OPACITY', '1')} ${45 * (1 - value) + 55}%`);
     const gradient = gradArr.map(grad => `linear-gradient(${grad})`).join(',');
-    console.log(gradArr);
 
     const wheelStyle = {
         borderRadius: '50%',
