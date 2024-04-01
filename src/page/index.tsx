@@ -23,28 +23,28 @@ const IndexPage: React.FC = () => {
                 return;
             }
             const journals = await api.getJournals(user.uid);
+            console.log(journals);
             setJournals(journals as Journal[])
         })();
     }, [user, navigate]);
 
     const doPost = async (text: string) => {
-        const userJournal = {
+        const userJournalInput = {
             author: 'user',
             userId: user!.uid,
             content: text,
-        } as Journal;
+        };
+        const [userJournal] = await api.createJournals([userJournalInput]);
         setJournals([userJournal]);
         try {
-            const journals0 = await api.runApp({ appId: 'heart-health', userId: user!.uid, text: text });
-            const journals1 = await api.runApp({ appId: 'financial-wellbeing', userId: user!.uid, text: text });
-            const journals2 = await api.runApp({ appId: 'bank-transaction', userId: user!.uid, text: text });
-            const appJournals = [...journals0, ...journals1, ...journals2];
-
+            const promise0 = api.runApp({ appId: 'heart-health', userId: user!.uid, text: text });
+            const promise1 = api.runApp({ appId: 'financial-wellbeing', userId: user!.uid, text: text });
+            const promise2 = api.runApp({ appId: 'bank-transaction', userId: user!.uid, text: text });
+            const appJournalInputs = (await Promise.all([promise0, promise1, promise2])).flat();
+            const appJournals = await api.createJournals(appJournalInputs);
             setJournals(prev => {
-                return [...prev, ...appJournals as Journal[]]
+                return [...prev, ...appJournals];
             });
-            console.log(appJournals);
-            api.createJournals([...[userJournal], ...appJournals]);
         } catch (error) {
             console.error('API call failed:', error);
         }

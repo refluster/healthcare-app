@@ -25,7 +25,15 @@ const createJournals = async (_rowItems: Omit<Journal, 'id' | 'createdAt' | 'upd
     }))
     const ret = await http.post('/journals', inputItems);
     const items: Journal[] = ret.data;
-    return items;
+    const journals: Journal[] = items.map(item => {
+        const contentObj = JSON.parse(item.content);
+        return {
+            ...item,
+            title: contentObj.title,
+            content: contentObj.content,
+        }
+    })
+    return journals;
 };
 
 const getJournals = async (userId: string) => {
