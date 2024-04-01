@@ -34,7 +34,33 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
             y: {
                 min: 0,
                 max: 1.0,
+                border: {
+                    display: false,
+                },
+                ticks: {
+                    display: false,
+                    maxTicksLimit: 2,
+                },
+                grid: {
+                    display: true,
+                }
             },
+            x: {
+                border: {
+                    display: false,
+                },
+                ticks: {
+
+                },
+                grid: {
+                    display: false,
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false,
+            }
         },
         responsive: true,
         maintainAspectRatio: false,
