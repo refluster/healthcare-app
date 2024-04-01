@@ -31,7 +31,8 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
     const chartOptions = {
         scales: {
             y: {
-                beginAtZero: true,
+                min: 0,
+                max: 1.0,
             },
         },
         responsive: true,
