@@ -11,8 +11,9 @@ interface Props {
 
 const FinancialWellness: React.FC<Props> = ({ journal }) => {
     const d = journal;
-    const colorH = (360 - 30 - 120) * (1 - d.content.score) + 120;
-    const colorL = (360 - 120 + 30) * (1 - d.content.score) + 120 + 30;
+    const r = d.content.score/100;
+    const colorH = (360 - 30 - 120) * (1 - r) + 120;
+    const colorL = (360 - 120 + 30) * (1 - r) + 120 + 30;
     return (
         <Box sx={{ mx: 2, py: 4, borderBottom: '1px solid #eee', display: 'flex' }}>
             <Typography gutterBottom variant="h6" component="div">
