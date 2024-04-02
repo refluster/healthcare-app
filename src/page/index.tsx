@@ -10,6 +10,7 @@ import { Journal } from '../model';
 import FinancialWellness from '../app-ui/financial-wellness';
 import DefaultAppUI from '../app-ui/default';
 import UserAppUI from '../app-ui/user';
+import BookRecommendUI from '../app-ui/book-recommendation';
 
 const IndexPage: React.FC = () => {
     const [journals, setJournals] = React.useState([] as Journal[]);
@@ -40,7 +41,8 @@ const IndexPage: React.FC = () => {
             const promise0 = api.runApp({ appId: 'heart-health', userId: user!.uid, text: text });
             const promise1 = api.runApp({ appId: 'financial-wellbeing', userId: user!.uid, text: text });
             const promise2 = api.runApp({ appId: 'bank-transaction', userId: user!.uid, text: text });
-            const appJournalInputs = (await Promise.all([promise0, promise1, promise2]))
+            const promise3 = api.runApp({ appId: 'book-recommendation', userId: user!.uid, text: text });
+            const appJournalInputs = (await Promise.all([promise0, promise1, promise2, promise3]))
                 .flat() as Omit<Journal, 'id' | 'createdAt' | 'updatedAt'>[];
             console.log(appJournalInputs);
             const appJournals = await api.createJournals(appJournalInputs);
@@ -60,6 +62,8 @@ const IndexPage: React.FC = () => {
                     journals.map((d, idx) => {
                         if (d.author === 'financial-wellbeing') {
                             return (<FinancialWellness key={idx} journal={d} user={user!} />)
+                        } else if (d.author === 'book-recommendation') {
+                            return (<BookRecommendUI key={idx} journal={d} user={user!} />)
                         } else if (d.author === 'user') {
                             return (<UserAppUI key={idx} journal={d} user={user!} />)
                         } else {
