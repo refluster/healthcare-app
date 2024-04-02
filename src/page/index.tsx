@@ -40,7 +40,9 @@ const IndexPage: React.FC = () => {
             const promise0 = api.runApp({ appId: 'heart-health', userId: user!.uid, text: text });
             const promise1 = api.runApp({ appId: 'financial-wellbeing', userId: user!.uid, text: text });
             const promise2 = api.runApp({ appId: 'bank-transaction', userId: user!.uid, text: text });
-            const appJournalInputs = (await Promise.all([promise0, promise1, promise2])).flat();
+            const appJournalInputs = (await Promise.all([promise0, promise1, promise2]))
+                .flat() as Omit<Journal, 'id' | 'createdAt' | 'updatedAt'>[];
+            console.log(appJournalInputs);
             const appJournals = await api.createJournals(appJournalInputs);
             setJournals(prev => {
                 return [...prev, ...appJournals];

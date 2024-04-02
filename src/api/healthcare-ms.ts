@@ -120,6 +120,16 @@ const runApp = async (param: RunAppParam) => {
         userId: param.userId
     });
     const functionRes = response.data.apps[0][param.appId];
+    const results = [
+        {
+            author: param.appId,
+            content: functionRes,
+            title: functionRes.title,
+            userId: param.userId
+        } as Omit<Journal, 'id' | 'createdAt' | 'updatedAt'>
+    ]
+    console.log(param.appId, functionRes);
+    /*
     const results: Omit<Journal, 'id' | 'createdAt' | 'updatedAt'>[] = functionRes.advice.map((d: any) => {
         return {
             author: param.appId,
@@ -128,6 +138,7 @@ const runApp = async (param: RunAppParam) => {
             userId: param.userId
         } as Journal;
     });;
+    */
     return results;
 }
 
