@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { DailyStats, Journal } from '../model';
 
 const baseURL = 'https://www.googleapis.com/';
 
@@ -27,15 +26,20 @@ type QueryParams = {
     maxResults: number,
 }
 
-const queryBooks = async ({query, maxResults}: QueryParams) => {
-    const ret = await http.get('/books/v1/volumes', {
-        params: {
-            q: query.join('+'),
-            maxResults,
-        }
-    });
-    const result: BookSearchResult = ret.data;
-    return result;
+const queryBooks = async ({ query, maxResults }: QueryParams) => {
+    try {
+        const ret = await http.get('/books/v1/volumes', {
+            params: {
+                q: query.join('+'),
+                maxResults,
+            }
+        });
+        const result: BookSearchResult = ret.data;
+        return result;
+    } catch (e) {
+        console.error('google book search', e);
+        return undefined;
+    }
 };
 
 export {
