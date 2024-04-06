@@ -15,7 +15,7 @@ type BookSearchResult = {
             description: string;
             imageLinks: {
                 thumbnail: string;
-            },
+            } | undefined,
             infoLink: string;
         }
     }[];
