@@ -30,7 +30,6 @@ const BookRecommendUI: React.FC<Props> = ({ journal }) => {
     React.useEffect(() => {
         (async () => {
             const queryResult = await queryBooks({query: content.query, maxResults: 3});
-            //const queryResult = QueryResult;
             if (queryResult === undefined) {
                 return;
             }
@@ -38,7 +37,7 @@ const BookRecommendUI: React.FC<Props> = ({ journal }) => {
                 title: d.volumeInfo.title,
                 subtitle: d.volumeInfo.subtitle,
                 infoLink: d.volumeInfo.infoLink,
-                thumbnail: d.volumeInfo.imageLinks.thumbnail.replace('http:', 'https:'),
+                thumbnail: d.volumeInfo.imageLinks?.thumbnail.replace('http:', 'https:'),
             } as BookInfo))
             setBookInfo(_bookInfo);
         })();
@@ -82,6 +81,7 @@ const BookRecommendUI: React.FC<Props> = ({ journal }) => {
                             <Box sx={{
                                 height: 120,
                                 minWidth: 80,
+                                backgroundColor: '#eee',
                                 backgroundSize: 'cover',
                                 backgroundImage: `url(${book.thumbnail})`
                             }} />
