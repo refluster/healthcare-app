@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
 import * as api from '../api';
+import { UserProfile } from '../model';
 
 const UserProfilePage: React.FC = () => {
     const [user] = useAuthState(auth);
     const [profileText, setProfileText] = useState('');
+    const [userProfile, setUserProfile] = useState({} as UserProfile);
     const navigate = useNavigate();
     useEffect(() => {
         (async () => {
@@ -16,7 +18,8 @@ const UserProfilePage: React.FC = () => {
                 navigate('/intro');
                 return;
             }
-            await api.getUser(user.uid);
+            const _userProfile = await api.getUser(user.uid);
+            setUserProfile(_userProfile);
         })();
     }, [navigate, user]);
 
@@ -24,7 +27,7 @@ const UserProfilePage: React.FC = () => {
         if (!user) {
             return;
         }
-        console.log(profileText);
+        console.log('save', profileText);
         await api.patchUser({
             id: user.uid,
             profileText,
@@ -43,8 +46,9 @@ const UserProfilePage: React.FC = () => {
                     id="standard-multiline-static"
                     multiline
                     rows={4}
-                    placeholder="What's happening?"
+                    placeholder="Tell me something about yourself."
                     variant="standard"
+                    defaultValue={userProfile.profileText}
                     sx={{
                         width: '100%',
                         py: 2,

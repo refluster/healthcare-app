@@ -129,23 +129,12 @@ const runApp = async (param: RunAppParam) => {
         } as Omit<Journal, 'id' | 'createdAt' | 'updatedAt'>
     ]
     console.log(param.appId, functionRes);
-    /*
-    const results: Omit<Journal, 'id' | 'createdAt' | 'updatedAt'>[] = functionRes.advice.map((d: any) => {
-        return {
-            author: param.appId,
-            content: d,
-            title: d.title,
-            userId: param.userId
-        } as Journal;
-    });;
-    */
     return results;
 }
 
 const patchUser = async (userProfileInput: Partial<UserProfile>) => {
     const inputItems: Partial<UserProfile>[] = [userProfileInput];
     const ret = await http.patch('/users', inputItems);
-    console.log('user patched', ret.data);
     return ret.data;
 }
 
@@ -155,8 +144,7 @@ const getUser = async (userId: string) => {
             userId,
         }
     });
-    console.log('get user', ret.data);
-    return ret.data;
+    return ret.data[0];
 }
 
 export {
