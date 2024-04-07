@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Slider, Switch, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import Header from '../component/header';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -18,7 +18,7 @@ const UserProfilePage: React.FC = () => {
             }
             await api.getUser(user.uid);
         })();
-    }, []);
+    }, [navigate, user]);
 
     const saveProfile = async () => {
         if (!user) {
