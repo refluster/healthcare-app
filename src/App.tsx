@@ -10,7 +10,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import IndexPage from './page';
-import ConfigPage from './page/config';
+import ProfilePage from './page/profile';
 import HealthcarePage from './page/healthcare';
 import IntroPage from './page/intro';
 import StatsPage from './page/stats';
@@ -27,8 +27,8 @@ function routes() {
       path: "/healthcare",
       element: <HealthcarePage />
     }, {
-      path: "/config",
-      element: <ConfigPage />
+      path: "/profile",
+      element: <ProfilePage />
     }, {
       path: "/intro",
       element: <IntroPage />
