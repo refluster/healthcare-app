@@ -3,8 +3,8 @@ import { Box, Button, Slider, Switch, TextField, Typography } from '@mui/materia
 import Header from '../component/header';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import * as api from '../api';
 import { auth } from '../lib/firebase';
+import * as api from '../api';
 
 const UserProfilePage: React.FC = () => {
     const [user] = useAuthState(auth);
@@ -20,8 +20,15 @@ const UserProfilePage: React.FC = () => {
         })();
     }, []);
 
-    const saveProfile = () => {
+    const saveProfile = async () => {
+        if (!user) {
+            return;
+        }
         console.log(profileText);
+        await api.patchUser({
+            id: user.uid,
+            profileText,
+        });
     }
 
     return (
