@@ -71,8 +71,8 @@ const BookRecommendUI: React.FC<Props> = ({ journal }) => {
                         {content.content}
                         <Box>{content.query.join(' ')}</Box>
                     </Box>
-                    {bookInfo.map(book => (
-                        <Link href={book.infoLink} sx={{
+                    {bookInfo.map((book,idx) => (
+                        <Link href={book.infoLink} key={idx} sx={{
                             textDecoration: 'none',
                             display: 'flex',
                             gap: 2,

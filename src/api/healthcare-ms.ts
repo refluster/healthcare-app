@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DailyStats, Journal } from '../model';
+import { DailyStats, Journal, UserProfile } from '../model';
 
 const baseURL = 'https://3nk07nnllh.execute-api.us-west-2.amazonaws.com/Prod';
 
@@ -142,9 +142,28 @@ const runApp = async (param: RunAppParam) => {
     return results;
 }
 
+const patchUser = async (userProfileInput: Partial<UserProfile>) => {
+    const inputItems: Partial<UserProfile>[] = [userProfileInput];
+    const ret = await http.patch('/users', inputItems);
+    console.log('user patched', ret.data);
+    return ret.data;
+}
+
+const getUser = async (userId: string) => {
+    const ret = await http.get('/users', {
+        params: {
+            userId,
+        }
+    });
+    console.log('get user', ret.data);
+    return ret.data;
+}
+
 export {
     createJournals,
     getJournals,
     getDailyStats,
     runApp,
+    patchUser,
+    getUser,
 };

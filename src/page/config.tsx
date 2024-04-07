@@ -1,46 +1,53 @@
-import React, { useEffect } from 'react';
-import { Box, Slider, Switch, TextField, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, Button, Slider, Switch, TextField, Typography } from '@mui/material';
 import Header from '../component/header';
+import { useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import * as api from '../api';
+import { auth } from '../lib/firebase';
 
-const IndexPage: React.FC = () => {
+const UserProfilePage: React.FC = () => {
+    const [user] = useAuthState(auth);
+    const [profileText, setProfileText] = useState('');
+    const navigate = useNavigate();
     useEffect(() => {
         (async () => {
+            if (!user) {
+                navigate('/intro');
+                return;
+            }
+            await api.getUser(user.uid);
         })();
     }, []);
 
-    const label = { inputProps: { 'aria-label': 'Switch demo' } };
+    const saveProfile = () => {
+        console.log(profileText);
+    }
 
     return (
         <Box>
-            <Header title="Setting" />
-            <Box sx={{ pt: 15, mx: 2 }}>
-                <Typography variant="h4">Personalization</Typography>
-                <Box>This is to be a config page, e.g. profile setting.</Box>
-                <Slider
-                    sx={{mt: 4}}
-                    size="medium"
-                    defaultValue={70}
-                    aria-label="Small"
-                    valueLabelDisplay="auto"
+            <Header title="Profile" />
+            <Box sx={{ pt: 12, mx: 2 }}>
+                <Typography variant="h4">{user?.displayName}</Typography>
+            </Box>
+            <Box sx={{ m: 2 }}>
+                <Box>Profile</Box>
+                <TextField
+                    id="standard-multiline-static"
+                    multiline
+                    rows={4}
+                    placeholder="What's happening?"
+                    variant="standard"
+                    sx={{
+                        width: '100%',
+                        py: 2,
+                    }}
+                    onChange={(e) => setProfileText(e.target.value)}
                 />
-                <Box><TextField sx={{width: '100%'}} id="standard-basic" label="Input something" variant="standard" /></Box>
-                <Box><TextField sx={{width: '100%'}} id="standard-basic" label="Input something" variant="standard" /></Box>
-                <Box><TextField sx={{width: '100%'}} id="standard-basic" label="Input something" variant="standard" /></Box>
-                <Box sx={{ display: 'flex', mt: 4, justifyContent: 'space-between' }}>
-                    <div>Custom A</div>
-                    <Switch {...label} defaultChecked />
-                </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div>Custom B</div>
-                    <Switch {...label} defaultChecked />
-                </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div>Custom C</div>
-                    <Switch {...label} defaultChecked />
-                </Box>
+                <Button variant='contained' onClick={saveProfile}>Save</Button>
             </Box>
         </Box>
     );
 };
 
-export default IndexPage;
+export default UserProfilePage;

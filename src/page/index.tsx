@@ -26,6 +26,7 @@ const IndexPage: React.FC = () => {
             const journals = await api.getJournals(user.uid);
             console.log(journals);
             setJournals(journals as Journal[])
+            await api.patchUser({id: user.uid});
         })();
     }, [user, navigate]);
 
