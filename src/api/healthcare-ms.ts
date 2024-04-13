@@ -73,13 +73,18 @@ type DailyStatsBody = {
     createdAt: string;
 };
 
-const getDailyStats = async (userId: string) => {
+type GetDailyStatsParams = {
+    userId: string;
+    startDate: Date;
+    endDate: Date;
+}
+const getDailyStats = async (params: GetDailyStatsParams) => {
     try {
         const ret = await http.get('/daily', {
             params: {
-                userId,
-                startDate: '2000-01-01T00:00:00.000Z',
-                endDate: '2100-01-01T00:00:00.000Z',
+                userId: params.userId,
+                startDate: params.startDate,
+                endDate: params.endDate,
             }
         });
         const items: DailyStatsBody[] = ret.data;

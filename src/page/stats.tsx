@@ -9,6 +9,7 @@ import { DailyStats } from '../model';
 import * as api from '../api';
 import WellnessWheel from '../component/wellness';
 import LineChart from '../component/line-chart';
+import { addDays, endOfToday, startOfToday } from 'date-fns';
 
 Chart.register(...registerables);
 //ChartJS.register(ArcElement, Tooltip, Legend);
@@ -22,7 +23,12 @@ const StatsPage: React.FC = () => {
             if (!user) {
                 return;
             }
-            const dailyStats = (await api.getDailyStats(user.uid))
+            const query = {
+                userId: user.uid,
+                startDate: addDays(startOfToday(), -6),
+                endDate: endOfToday(),
+            }
+            const dailyStats = (await api.getDailyStats(query))
                 .splice(0,7)
                 .reverse()
             setDailyStats(dailyStats)
